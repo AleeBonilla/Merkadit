@@ -1,0 +1,118 @@
+-- MySQL Workbench Forward Engineering
+
+SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
+SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
+SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION';
+
+-- -----------------------------------------------------
+-- Schema mydb
+-- -----------------------------------------------------
+-- -----------------------------------------------------
+-- Schema Merkadit_DB
+-- -----------------------------------------------------
+
+-- -----------------------------------------------------
+-- Schema Merkadit_DB
+-- -----------------------------------------------------
+CREATE SCHEMA IF NOT EXISTS `Merkadit_DB` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci ;
+USE `Merkadit_DB` ;
+
+-- -----------------------------------------------------
+-- Table `Merkadit_DB`.`Countries`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `Merkadit_DB`.`Countries` (
+  `country_id` INT NOT NULL AUTO_INCREMENT,
+  `country_name` VARCHAR(50) NULL,
+  PRIMARY KEY (`country_id`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `Merkadit_DB`.`States`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `Merkadit_DB`.`States` (
+  `state_id` INT NOT NULL AUTO_INCREMENT,
+  `state_name` VARCHAR(50) NULL,
+  `country_id` INT NOT NULL,
+  PRIMARY KEY (`state_id`),
+  INDEX `fk_States_Countries1_idx` (`country_id` ASC) VISIBLE,
+  CONSTRAINT `fk_States_Countries1`
+    FOREIGN KEY (`country_id`)
+    REFERENCES `Merkadit_DB`.`Countries` (`country_id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `Merkadit_DB`.`cities`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `Merkadit_DB`.`cities` (
+  `city_id` INT NOT NULL AUTO_INCREMENT,
+  `city_name` VARCHAR(50) NULL,
+  `state_id` INT NOT NULL,
+  PRIMARY KEY (`city_id`),
+  INDEX `fk_cities_States1_idx` (`state_id` ASC) VISIBLE,
+  CONSTRAINT `fk_cities_States1`
+    FOREIGN KEY (`state_id`)
+    REFERENCES `Merkadit_DB`.`States` (`state_id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `Merkadit_DB`.`Addresses`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `Merkadit_DB`.`Addresses` (
+  `address_id` INT NOT NULL AUTO_INCREMENT,
+  `address1` VARCHAR(60) NULL,
+  `address2` VARCHAR(60) NULL,
+  `zipcode` VARCHAR(6) NULL,
+  `geolocation` POINT NULL,
+  `city_id` INT NOT NULL,
+  PRIMARY KEY (`address_id`),
+  INDEX `fk_Addresses_cities1_idx` (`city_id` ASC) VISIBLE,
+  CONSTRAINT `fk_Addresses_cities1`
+    FOREIGN KEY (`city_id`)
+    REFERENCES `Merkadit_DB`.`cities` (`city_id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `Merkadit_DB`.`buildings`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `Merkadit_DB`.`buildings` (
+  `building_id` INT NOT NULL AUTO_INCREMENT,
+  `Addresses_address_id` INT NOT NULL,
+  PRIMARY KEY (`building_id`),
+  INDEX `fk_buildings_Addresses1_idx` (`Addresses_address_id` ASC) VISIBLE,
+  CONSTRAINT `fk_buildings_Addresses1`
+    FOREIGN KEY (`Addresses_address_id`)
+    REFERENCES `Merkadit_DB`.`Addresses` (`address_id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `Merkadit_DB`.`markets`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `Merkadit_DB`.`markets` (
+  `market_id` INT NOT NULL AUTO_INCREMENT,
+  `building_id` INT NOT NULL,
+  PRIMARY KEY (`market_id`),
+  INDEX `fk_markets_buildings_idx` (`building_id` ASC) VISIBLE,
+  CONSTRAINT `fk_markets_buildings`
+    FOREIGN KEY (`building_id`)
+    REFERENCES `Merkadit_DB`.`buildings` (`building_id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+SET SQL_MODE=@OLD_SQL_MODE;
+SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
+SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
