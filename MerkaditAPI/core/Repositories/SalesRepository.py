@@ -12,4 +12,9 @@ class SalesRepository(BaseRepository):
             conns.append(i)
         return conns
 
+    def RegisterSale(self):
+        cursor = self.CreateCursor()
+        cursor.execute("EXECUTE registerSale")
+        pass
+
 SalesRepo = SalesRepository()

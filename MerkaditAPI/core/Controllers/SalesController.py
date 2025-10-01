@@ -10,5 +10,8 @@ class SalesController:
     def GetSales(self, test: int) -> str:
         pass
 
+    def RegisterSale(self):
+        pass
+
 SalesCtrl = SalesController()
     
