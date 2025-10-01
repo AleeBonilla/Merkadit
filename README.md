@@ -226,13 +226,6 @@ SHOW PROCEDURE STATUS WHERE Db = 'Merkadit_db';
 ### Ejemplo 1: Registrar una Venta
 
 ```sql
--- Crear usuario cajero
-INSERT INTO Users (userId, userNationalId, userFirstname, userLastname, 
-                   userPassword, userStatus, createdAt, enabled)
-VALUES (100, '101230456', 'Maria', 'Rodriguez', 
-        SHA2('password123', 256), 'ACTIVE', NOW(), 1);
-
--- Registrar venta
 CALL registerSale(
     'Set de Lego City',                          -- Producto
     'Juguetería Feliz',                          -- Tienda
@@ -386,7 +379,7 @@ Colección de Postman incluida con endpoints para:
 
 **Importar colección:**
 ```bash
-# Archivo: postman_collection.json
+# ...
 ```
 
 ---
@@ -396,6 +389,7 @@ Colección de Postman incluida con endpoints para:
 Este proyecto fue desarrollado como parte del curso de Bases de Datos I.
 
 ### Equipo de Desarrollo
+
 - **Desarrolladores**: Alexander Bonilla, Mariano Soto y Andrés Rodríguez
 - **Institución**: ITCR
 - **Curso**: Bases de Datos I
@@ -419,12 +413,6 @@ Sin licencia.
 | Procedimiento #2 | ✅ Completo | 
 | API REST | ✅ | Completo |
 | Reportes | ✅ | Completo |
-
----
-
-## 📚 Documentación Adicional
-
-- [Diagrama ER Completo](docs/er-diagram.pdf)
 
 ---
 
