@@ -109,7 +109,7 @@ Countries → States → Cities → Addresses → Buildings → BuildingArea
 
 ---
 
-## 🚀 Características Implementadas
+## Características Implementadas
 
 ### ✅ Procedimientos Almacenados
 
@@ -155,7 +155,7 @@ Liquida las cuentas de una tienda para el mes en curso.
 
 ---
 
-## 📊 Datos de Ejemplo
+## Datos de Ejemplo
 
 ### Script de Inserción Automática
 
@@ -180,7 +180,7 @@ El sistema incluye un script que genera:
 
 ---
 
-## 🔧 Instalación y Configuración
+## Instalación y Configuración
 
 ### Requisitos Previos
 - MySQL 8.0 o superior
