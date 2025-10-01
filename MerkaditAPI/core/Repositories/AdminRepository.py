@@ -6,7 +6,9 @@ class AdminRepository(BaseRepository):
 
     def settleCommerce(self, local: str, comercio:str, mes: int = None):
         cursor = self.CreateCursor()
-        query = f"call settleCommerce('{local}', '{comercio}', {mes if mes is not None else "NULL"})"
+        print(local, comercio)
+        query = f"call settleCommerce('{comercio}', '{local}', {mes if mes is not None else "NULL"})"
+        print(query)
         cursor.execute(query)
         result = {
             "rowcount": cursor.rowcount,

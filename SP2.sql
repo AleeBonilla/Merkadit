@@ -26,19 +26,20 @@ settle_commerce: BEGIN
 	-- SET @local = 'Mercado 99 SUC1';
     
 	-- validar que el comercio y local existan y tengan un contrato establecido
-    SET v_spacesCount = (select Count(*) from SpacesPerContract SPC
-    inner join Contracts C on C.contractId = SPC.contractId
-    inner join Business B on B.BusinessId = C.tenantBusinessId
-    inner join Spaces S on S.spaceId = SPC.spaceID
+    SET v_spacesCount = (select COUNT(*) from SpacesPerContract as SPC
+	inner join contracts C on C.contractId = SPC.contractId
+    inner join Business B on B.businessId = C.tenantBusinessId
+    inner join Spaces S on S.SpaceID = SPC.SpaceId
     inner join Markets M on M.MarketId = S.MarketId
     where
-		M.name = p_local AND
-        B.name = p_comercio
+        B.name =  p_comercio AND
+        M.name = p_local
 	);
+        
     If v_spacesCount <= 0 THEN
 		SIGNAL SQLSTATE '01000' -- Standard SQLSTATE for a general warning
 			SET MESSAGE_TEXT = "No se realizó el cobro ya que no hay un contrato entre el comercio y el local proveidos";
-		SELECT "Warning" as Status, "No se realizó el cobro ya que no hay un contrato entre el comercio y el local proveidos" as Description;
+		SELECT "Warning" as Status, "No se realizó el cobro ya que no hay un contrato entre el comercio y el local proveidos" as Description, v_spacesCount as count;
 		Leave settle_commerce;
 	End If;
     
@@ -109,12 +110,26 @@ settle_commerce: BEGIN
 END//
 DELIMITER ;
 
--- select * from transactions
--- order by createdAt Desc;
+SET @comercio = 'Librería Alfa';
+SET @local = 'Mercado 99 SUC1';
+select COUNT(*) from transactions as T
+    inner join Business B on B.businessId = T.BusinessId
+    inner join contracts C on C.contractId = T.contractId
+    inner join SpacesPerContract SPC on SPC.contractId = T.contractId
+    inner join Spaces S on S.SpaceID = SPC.SpaceId
+    inner join Markets M on M.MarketId = S.MarketId
+    where
+		T.transactionType = 4 AND
+        B.name = @comercio AND
+        M.name = @local AND
+        MONTH(T.createdAt) = 9;
+
+select * from transactions
+order by createdAt Desc;
 
 -- delete from transactions
 -- where transactionId = 247
 
 -- SET @comercio = 'Librería Alfa';
 -- SET @local = 'Mercado 99 SUC1';
-call settleCommerce('Mercado 99 SUC1', 'Librería Alfa', NULL);
+call settleCommerce('Mercado 99 SUC1', 'Librería Alfa', 9);
