@@ -36,9 +36,9 @@ settle_commerce: BEGIN
         B.name = p_comercio
 	);
     If v_spacesCount <= 0 THEN
-		SELECT "Warning" as Status, "No se realizó el cobro ya que no hay un contrato entre el comercio y el local proveidos" as Description;
 		SIGNAL SQLSTATE '01000' -- Standard SQLSTATE for a general warning
 			SET MESSAGE_TEXT = "No se realizó el cobro ya que no hay un contrato entre el comercio y el local proveidos";
+		SELECT "Warning" as Status, "No se realizó el cobro ya que no hay un contrato entre el comercio y el local proveidos" as Description;
 		Leave settle_commerce;
 	End If;
     
@@ -56,9 +56,9 @@ settle_commerce: BEGIN
         MONTH(T.createdAt) = v_month
     );
 	if v_payments > 0 THEN
-		SELECT "Warning" as Status, "El cobro ya se había realizado anteriormente" as Description;
 		SIGNAL SQLSTATE '01000' -- Standard SQLSTATE for a general warning
 			SET MESSAGE_TEXT = "El cobro ya se había realizado anteriormente";
+		SELECT "Warning" as Status, "El cobro ya se había realizado anteriormente" as Description;
 		Leave settle_commerce;
     end if;
     
@@ -79,9 +79,9 @@ settle_commerce: BEGIN
 	
     -- si se debe algo realizar la transacción
     if v_total <= 0 OR v_total IS NULL THEN
-		SELECT "Warning" as Status, "No se realizó el cobro ya que el monto de la transacción sería 0" as Description;
 		SIGNAL SQLSTATE '01000' -- Standard SQLSTATE for a general warning
 			SET MESSAGE_TEXT = "No se realizó el cobro ya que el monto de la transacción sería 0";
+		SELECT "Warning" as Status, "No se realizó el cobro ya que el monto de la transacción sería 0" as Description;
 		leave settle_commerce;
     end if;
     
@@ -104,6 +104,8 @@ settle_commerce: BEGIN
 	where
 		B.name = p_comercio AND
 		M.name = p_local;
+        
+	SELECT "Success" as Status, "Cobro procesado correctamente" as Description;
 END//
 DELIMITER ;
 
