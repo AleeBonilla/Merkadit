@@ -1,0 +1,75 @@
+{
+	"info": {
+		"_postman_id": "581055a9-b6f2-48aa-9ade-edb8639b120c",
+		"name": "Merkadit",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "48890700",
+		"_collection_link": "https://jmarianosoto-7672862.postman.co/workspace/Jose-Mariano-Soto-Nu%C3%B1ez's-Works~baf9b3b4-2c9a-4180-8f5e-5c978eda44e1/collection/48890700-581055a9-b6f2-48aa-9ade-edb8639b120c?action=share&source=collection_link&creator=48890700"
+	},
+	"item": [
+		{
+			"name": "registerSale",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"nombre_producto\": \"Set de Lego City\",\r\n    \"nombre_tienda\": \"Juguetería Feliz\",\r\n    \"cantidad_vendida\":  2,\r\n    \"monto_pagado\":  56500.0,\r\n    \"metodo_pago\": \"EFECTIVO\",\r\n    \"confirmaciones_pago\": {\"confirmado\": true},\r\n    \"numeros_referencia\": 123456789,\r\n    \"cedula_cliente\": \"304560789\",\r\n    \"nombre_cliente\":  \"Juan Pérez\",\r\n    \"descuentos_aplicados\": 0.0,\r\n    \"user_id\": 100,\r\n    \"computer_name\": \"CAJA-01\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:5000/sales/registerSale",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"sales",
+						"registerSale"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "settleCommerce",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"comercio\": \"Librería Alfa\",\r\n    \"local\": \"Mercado 99 SUC1\",\r\n    \"mes\": null\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:5000/admin/settleCommerce",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"admin",
+						"settleCommerce"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
