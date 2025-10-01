@@ -67,7 +67,7 @@ Countries → States → Cities → Addresses → Buildings → BuildingArea
 
 ---
 
-## 🗄️ Estructura de la Base de Datos
+## Estructura de la Base de Datos
 
 ### Tablas Principales (40+)
 
