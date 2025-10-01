@@ -31,6 +31,7 @@ INSERT INTO ProductCategories (productCategoryName) VALUES
 ('Electrónica'),('Ropa'),('Alimentos'),('Hogar'),('Libros'),('Juguetes')
 ,('Deportes'),('Salud'),('Belleza'),('Automotriz');
 
+select * from Addresses;
 -- UBICACIONES
 INSERT INTO Addresses (address1, address2, zipcode, geolocation, status, createdAt, updatedAt, enabled, cityIid) VALUES
 ('Av. Central 100', 'Edificio A, Piso 1', '30101', ST_GeomFromText('POINT(9.864 -83.918)'), 'ACTIVE', NOW(), NULL, 1, 1),

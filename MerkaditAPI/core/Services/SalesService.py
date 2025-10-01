@@ -6,5 +6,8 @@ class SalesService:
 
     def Test(self):
         return SalesRepo.Test()
+    
+    def RegisterSale(self):
+        pass
 
 SalesServ = SalesService()
