@@ -10,8 +10,8 @@ class SalesController:
     def GetSales(self, test: int) -> str:
         pass
 
-    def RegisterSale(self):
-        pass
+    def RegisterSale(self, saleDict):
+        return SalesServ.RegisterSale(saleDict)
 
 SalesCtrl = SalesController()
     

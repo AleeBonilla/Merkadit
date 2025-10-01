@@ -17,13 +17,22 @@ def Show():
 
 @SalesBlueprint.route('/registerSale', methods=["POST"])
 def RegisterSale():
-    print(request.json)
-    comercio: str = request.form.get("comercio")
-    cantidad: int = request.form.get("cantidad")
-    monto: float = request.form.get("monto")
-    numReferencia: int = request.form.get("num-referencia")
-    numFactura: int = request.form.get("num-factura")
-    cliente: str = request.form.get("cliente")
-    descuento: float = request.form.get("descuento")
+    print(type(request.json))
+    salesDict = request.json
     
-    return request.json
+    return SalesCtrl.RegisterSale(salesDict)
+
+test = {
+    "nombre_producto": 'Set de Lego City',
+    "nombre_tienda": 'Juguetería Feliz',
+    "cantidad_vendida":  2,
+    "monto_pagado":  56500.0,
+    "metodo_pago": "EFECTIVO",
+    "confirmaciones_pago": {"confirmado": True},
+    "numeros_referencia": 123456789,
+    "cedula_cliente": '304560789',
+    "nombre_cliente":  'Juan Pérez',
+    "descuentos_aplicados": 0.0,
+    "user_id": 100,
+    "computer_name": 'CAJA-01'
+}
