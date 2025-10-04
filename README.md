@@ -1,2 +1,0 @@
-# Merkadit
-Caso #1
